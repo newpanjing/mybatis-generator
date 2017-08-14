@@ -1,0 +1,42 @@
+package ${package}.dao;
+
+import java.util.List;
+import ${package}.entity.${modelName};
+import ${package}.dao.page.Page;
+import ${package}.entity.${modelName}Example;
+import org.apache.ibatis.annotations.Param;
+
+/**
+* ${modelRemark}
+* @author ${author}
+* @project wootop-dao
+*/
+public interface ${modelName}Mapper{
+
+    long countByExample(${modelName}Example example);
+
+    int deleteByExample(${modelName}Example example);
+
+    int deleteByPrimaryKey(Long id);
+
+    int insert(${modelName} record);
+
+    int insertSelective(${modelName} record);
+
+    List <${modelName}> selectByExample(${modelName}Example example);
+
+    List <${modelName}> selectByPageAndExample(Page<${modelName}> page,${modelName}Example example);
+
+    ${modelName} selectByPrimaryKey(Long id);
+
+    int updateByExampleSelective(@Param("record") ${modelName} record, @Param("example") ${modelName}Example example);
+
+    int updateByExample(@Param("record") ${modelName} record, @Param("example") ${modelName}Example example);
+
+    int updateByPrimaryKeySelective(${modelName} record);
+
+    int updateByPrimaryKey(${modelName} record);
+
+}
+
+
