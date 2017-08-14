@@ -1,9 +1,9 @@
 {
 	"package":"com.wootop",
 	"jdbc":{
-		"url":"jdbc:mysql://120.76.157.188:3306/wootop_new?useUnicode=true&characterEncoding=utf-8",
-		"username":"wootop",
-		"password":"wootop2016"
+		"url":"数据库链接",
+		"username":"用户名",
+		"password":"密码"
 	},
 	"tableMapping":{
 		"ecg_user_report_image":{
