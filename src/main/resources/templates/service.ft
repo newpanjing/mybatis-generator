@@ -9,6 +9,7 @@ import ${package}.util.DataGrid;
  * ${modelRemark} Service
  * @author ${author}
  * @project ${project}
+ * @date  ${now?datetime}
  */
 public interface ${modelName}Service {
 

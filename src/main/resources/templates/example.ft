@@ -9,6 +9,7 @@ import java.util.List;
  * ${modelName}Example
  * @author ${author}
  * @project ${project}
+ * @date  ${now?datetime}
  */
 public class ${modelName}Example {
 

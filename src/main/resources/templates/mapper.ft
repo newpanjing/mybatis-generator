@@ -10,6 +10,7 @@ import org.apache.ibatis.annotations.Param;
 * ${modelRemark}
 * @author ${author}
 * @project ${project}
+* @date  ${now?datetime}
 */
 public interface ${modelName}Mapper{
 

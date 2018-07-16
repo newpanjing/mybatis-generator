@@ -10,6 +10,7 @@ import ${p};
  * ${modelName}对应数据库表 ${tableName}
  * @author ${author}
  * @project ${project}
+ * @date  ${now?datetime}
  */
 public class ${modelName} implements Serializable {
 

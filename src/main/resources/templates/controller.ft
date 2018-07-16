@@ -28,7 +28,6 @@ public class ${modelName}Controller extends BaseController{
     @Autowired
     private ${modelName}Service ${service};
 
-
     /**
      * 保存
      *
