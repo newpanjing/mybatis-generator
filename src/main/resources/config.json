@@ -1,48 +1,57 @@
 {
-	"package":"com.wootop",
+	"package":"com.zh",
 	"jdbc":{
-		"url":"数据库链接",
-		"username":"用户名",
-		"password":"密码"
+		"url":"jdbc:mysql://192.168.1.179:3306/zh_test?useUnicode=true&characterEncoding=utf-8",
+		"username":"root",
+		"password":"zh2018"
 	},
 	"tableMapping":{
-		"ecg_user_report_image":{
-			"name":"EcgUserReportImage",
-			"remark":"用户心贴报告图片"
+		"sys_resources":{
+			"name":"SysResources",
+			"remark":"系统资源模块"
 		}
 	},
 	"author":"panjing",
+	"basePath":"/Users/panjing/dev/zh-parent-test/",
 	"templates":[{
 		"template":"types.ft",
 		"outSuffix":"Types.txt",
-		"outPath":"/Users/sun/Downloads/types"
+		"outPath":"/Users/panjing/Downloads/types"
 	},{
 		"template":"entity.ft",
 		"outSuffix":".java",
-		"outPath":"/Users/sun/dev/wootop-parent/wootop-entity/src/main/java/com/wootop/entity"
+		"outPath":"zh-entity/src/main/java/com/zh/entity",
+		"project":"zh-entity"
 	},{
 		"template":"mapper.ft",
 		"outSuffix":"Mapper.java",
-		"outPath":"/Users/sun/dev/wootop-parent/wootop-dao/src/main/java/com/wootop/dao"
+		"outPath":"zh-dao/src/main/java/com/zh/dao",
+		"project":"zh-dao"
 	},{
 		"template":"mapper.xml.ft",
 		"outSuffix":"Mapper.xml",
-		"outPath":"/Users/sun/dev/wootop-parent/wootop-dao/src/main/java/com/wootop/dao/mapper"
+		"outPath":"zh-dao/src/main/java/com/zh/dao/mapper"
 	},{
 		"template":"service.ft",
 		"outSuffix":"Service.java",
-		"outPath":"/Users/sun/dev/wootop-parent/wootop-service/src/main/java/com/wootop/service"
+		"outPath":"zh-service/src/main/java/com/zh/service",
+		"project":"zh-service"
 	},{
 		"template":"serviceImpl.ft",
 		"outSuffix":"ServiceImpl.java",
-		"outPath":"/Users/sun/dev/wootop-parent/wootop-service/src/main/java/com/wootop/service/impl"
+		"outPath":"zh-service/src/main/java/com/zh/service/impl",
+		"project":"zh-service"
 	},{
 		"template":"controller.ft",
 		"outSuffix":"Controller.java",
-		"outPath":"/Users/sun/dev/wootop-parent/wootop-api/src/main/java/com/wootop/api/controller"
+		"outPath":"zh-api/src/main/java/com/zh/api/controller",
+		"project":"zh-api"
 	},{
 		"template":"example.ft",
 		"outSuffix":"Example.java",
-		"outPath":"/Users/sun/dev/wootop-parent/wootop-entity/src/main/java/com/wootop/entity"
-	}]
+		"outPath":"zh-entity/src/main/java/com/zh/entity",
+		"project":"zh-entity"
+	}
+
+	]
 }

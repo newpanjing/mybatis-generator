@@ -9,7 +9,7 @@ import ${p};
  * ${modelRemark}实体</p>
  * ${modelName}对应数据库表 ${tableName}
  * @author ${author}
- * @project wootop-entity
+ * @project ${project}
  */
 public class ${modelName} implements Serializable {
 

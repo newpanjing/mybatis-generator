@@ -9,7 +9,7 @@ import org.apache.ibatis.annotations.Param;
 /**
 * ${modelRemark}
 * @author ${author}
-* @project wootop-dao
+* @project ${project}
 */
 public interface ${modelName}Mapper{
 

@@ -19,7 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 /**
 * ${modelRemark} Service
 * @author ${author}
-* @project wootop-service
+* @project ${project}
 */
 @Service("${modelName?uncap_first}Service")
 public class ${modelName}ServiceImpl implements ${modelName}Service {

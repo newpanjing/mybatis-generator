@@ -172,9 +172,9 @@
     <update id="updateByPrimaryKey" parameterType="${package}.entity.${modelName}" >
         update ${tableName}
         set
-		<#list columns as item>
-        ${item.name} = ${"#"}{${item.fieldName},jdbcType=VARCHAR}<#if item_index lt columns?size-1 >,</#if>
-		</#list>
+            <#list columns as item>
+            ${item.name} = ${"#"}{${item.fieldName},jdbcType=VARCHAR}<#if item_index lt columns?size-1 >,</#if>
+            </#list>
         where ${idField} = ${"#"}{${idFieldName}}
     </update>
 

@@ -8,7 +8,7 @@ import ${package}.util.DataGrid;
 /**
  * ${modelRemark} Service
  * @author ${author}
- * @project wootop-service
+ * @project ${project}
  */
 public interface ${modelName}Service {
 

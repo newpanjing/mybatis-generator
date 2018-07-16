@@ -10,12 +10,7 @@ import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
@@ -27,7 +22,7 @@ import freemarker.template.Template;
 /**
  * mybatis代码生成器<br/>
  * 直接运行这个类，配置在resources里面的config.json
- * @author wzy
+ * @author panjing
  * @project build-code	
  * @date 2016年6月14日 下午5:43:59
  */
@@ -98,6 +93,11 @@ public class BuildHelper {
 		return null;
 	}
 
+	/**
+	 * 解析模板
+	 * @param template
+	 * @param tableMap
+	 */
 	public void buildTemplate(Map<String,String> template, Map<Object, Object> tableMap) {
 
 		// 通过Template可以将模板文件输出到相应的流
@@ -109,18 +109,39 @@ public class BuildHelper {
 			if (!dir.exists()) {
 				dir.mkdirs();
 			}
-			File target = new File(dir.getPath() + "/" +tableMap.get("modelName") + template.get("outSuffix"));
+
+			String filePath = String.valueOf(tableMap.get("basePath")) + dir.getPath() + "/" + tableMap.get("modelName") + template.get("outSuffix");
+
+			File target = new File(filePath);
+			File dirTarget=new File(target.getParent());
+			if(!dirTarget.exists()){
+				dirTarget.mkdirs();
+			}
 			if (!target.exists()) {
 				target.createNewFile();
 			}
 			System.out.println(target);
 			FileWriter fw = new FileWriter(target);
+
+			//扩展字段
+			Set<String> keys = template.keySet();
+			for (String key : keys) {
+				if (!tableMap.containsKey(key)) {
+					tableMap.put(key, template.get(key));
+				}
+			}
+
 			temp.process(tableMap, fw);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
+	/**
+	 * 解析配置信息
+	 * @return
+	 * @throws Exception
+	 */
 	public List<Map<Object, Object>> handlerInfo() throws Exception {
 
 		JSONObject jsonObject = getConfig();
@@ -130,7 +151,13 @@ public class BuildHelper {
 		String password = (String) jdbcMap.get("password");
 		String url = (String) jdbcMap.get("url");
 
-		String author = (String) jsonObject.get("author");
+		String author = jsonObject.getString("author");
+
+		//输出目录根路径
+		String basePath = jsonObject.getString("basePath");
+		if (basePath == null) {
+			basePath = "";
+		}
 
 		Class.forName("com.mysql.jdbc.Driver").newInstance();
 		String basePackage = (String) jsonObject.get("package");
@@ -223,19 +250,30 @@ public class BuildHelper {
 					isFirs = true;
 				}
 			}
-			
+
+			//设置basePath
+			tableMap.put("basePath", basePath);
+
 			tableMap.put("idFieldName", idFieldName);
 			tableMap.put("package", basePackage);
 			tableMap.put("templates", templates);
 			tableMap.put("columns", columns);
 			tableMap.put("modelRemark", tableRemark);
 			tableMap.put("author", author);
+			//当前日期
+			tableMap.put("now", new Date());
+
 
 			modules.add(tableMap);
 		}
 		return modules;
 	}
 
+	/**
+	 * 类型处理
+	 * @param type
+	 * @return
+	 */
 	public Map<String, Object> handlerType(String type) {
 
 		Map<String, Object> rs = new HashMap<String, Object>();
@@ -269,6 +307,11 @@ public class BuildHelper {
 		return rs;
 	}
 
+	/**
+	 * 加载配置
+	 * @return
+	 * @throws Exception
+	 */
 	public JSONObject getConfig() throws Exception {
 
 		// 读取配置
@@ -281,11 +324,16 @@ public class BuildHelper {
 			str.append(line);
 		}
 		br.close();
-
+		System.out.println(str);
 		return JSON.parseObject(str.toString());
 
 	}
 
+	/**
+	 * 首字母小写
+	 * @param str
+	 * @return
+	 */
 	public String firstLow(String str) {
 
 		if (str.length() > 1) {
@@ -296,6 +344,11 @@ public class BuildHelper {
 		return str;
 	}
 
+	/**
+	 * 首字母大写
+	 * @param str
+	 * @return
+	 */
 	public String firstUp(String str) {
 
 		if (str.length() > 1) {

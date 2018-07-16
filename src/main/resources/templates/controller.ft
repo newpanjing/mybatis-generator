@@ -14,7 +14,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 /**
  * ${modelRemark} 控制器
  * @author ${author}
- * @project wootop-api
+ * @project ${project}
+ * @date  ${now?datetime}
  */
 @Controller
 @RequestMapping("${requestUrl}")
