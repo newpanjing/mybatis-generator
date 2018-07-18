@@ -194,12 +194,14 @@ public class BuildHelper {
 			ResultSet rs = databaseMetaData.getColumns(null, "%", table, "%");
 
 			String idField = "id";
+			String idType = "";
 
 			ResultSet tableRs = databaseMetaData.getPrimaryKeys(null, null, table);
 			// 如果存在多个主键 就取第一个
 			if (tableRs.next()) {
 				String columnName = tableRs.getString("COLUMN_NAME");
 				idField = columnName;
+
 			}
 
 			while (rs.next()) {
@@ -228,6 +230,10 @@ public class BuildHelper {
 				typeMapper.put("INT","INTEGER");
 				typeMapper.put("DATETIME","TIMESTAMP");
 
+				if (name.equals(idField)) {
+					idType=handlerType(type).get("typeName").toString();
+				}
+
 				if(typeMapper.containsKey(type)){
 					type=typeMapper.get(type);
 				}
@@ -237,7 +243,8 @@ public class BuildHelper {
 			}
 
 			tableMap.put("idField", idField);
-			
+			tableMap.put("idType", idType);
+
 			String idFieldName = "";
 			String[] strs = idField.split("_");
 			boolean isFirs = false;
