@@ -333,13 +333,18 @@ public class BuildHelper {
         StringBuffer str = new StringBuffer();
         String line = null;
         while ((line = br.readLine()) != null) {
-            int index = line.indexOf("//");
-            if (index == 0) {
-                continue;
-            } else if (index != -1) {
-                //http之类的协议不处理
-                if (!":".equals(line.substring(index - 1, index))) {
-                    line = line.substring(0, index);
+
+            int index = 0;
+            //对同时存在http协议和注释处理
+            while (index != -1) {
+                index = line.indexOf("//");
+                if (index == 0) {
+                    continue;
+                } else if (index != -1) {
+                    //http之类的协议不处理
+                    if (!":".equals(line.substring(index - 1, index))) {
+                        line = line.substring(0, index);
+                    }
                 }
             }
             str.append(line);
