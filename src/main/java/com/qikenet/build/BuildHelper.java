@@ -344,6 +344,8 @@ public class BuildHelper {
                     //http之类的协议不处理
                     if (!":".equals(line.substring(index - 1, index))) {
                         line = line.substring(0, index);
+                    }else{
+                        break;
                     }
                 }
             }
