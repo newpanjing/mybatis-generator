@@ -1,5 +1,6 @@
 package ${package}.entity;
 
+import javax.persistence.Id;
 import java.io.Serializable;
 <#list packages as p>
 import ${p};
@@ -19,6 +20,7 @@ public class ${modelName} implements Serializable {
 	<#list columns as item>
 	<#if item.name == idField>
 	//主键字段
+	@Id
 	</#if>
 	private ${item.typeName} ${item.fieldName};// ${item.remark} ${item.name}
 	
