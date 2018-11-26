@@ -1,18 +1,18 @@
 {
-	"package":"com.zh",
+	"package":"com.zh.car",
 	"jdbc":{
 		"url":"jdbc:mysql://192.168.1.179:3306/zh_test?useUnicode=true&characterEncoding=utf-8",
 		"username":"root",
 		"password":"zh2018"
 	},
 	"tableMapping":{
-		"sys_resources":{
-			"name":"SysResources",
-			"remark":"系统资源模块"
+		"fence_setting":{
+			"name":"FenceSetting",
+			"remark":"电子围栏设置"
 		}
 	},
 	"author":"panjing",
-	"basePath":"/Users/panjing/dev/zh-parent-test/",
+	"basePath":"/Users/panjing/dev/car-parent",
 	"templates":[{
 		"template":"types.ft",
 		"outSuffix":"Types.txt",
@@ -20,37 +20,32 @@
 	},{
 		"template":"entity.ft",
 		"outSuffix":".java",
-		"outPath":"zh-entity/src/main/java/com/zh/entity",
-		"project":"zh-entity"
+		"outPath":"/car-common/src/main/java/com/zh/car/entity",
+		"project":"car-common"
 	},{
 		"template":"mapper.ft",
 		"outSuffix":"Mapper.java",
-		"outPath":"zh-dao/src/main/java/com/zh/dao",
-		"project":"zh-dao"
+		"outPath":"/car-service/src/main/java/com/zh/car/dao",
+		"project":"car-service"
 	},{
 		"template":"mapper.xml.ft",
 		"outSuffix":"Mapper.xml",
-		"outPath":"zh-dao/src/main/java/com/zh/dao/mapper"
+		"outPath":"/car-service/src/main/resources/mybatis/mapper"
 	},{
 		"template":"service.ft",
 		"outSuffix":"Service.java",
-		"outPath":"zh-service/src/main/java/com/zh/service",
-		"project":"zh-service"
+		"outPath":"/car-common/src/main/java/com/zh/car/service",
+		"project":"car-common"
 	},{
 		"template":"serviceImpl.ft",
 		"outSuffix":"ServiceImpl.java",
-		"outPath":"zh-service/src/main/java/com/zh/service/impl",
-		"project":"zh-service"
+		"outPath":"/car-service/src/main/java/com/zh/car/service/impl",
+		"project":"car-service"
 	},{
 		"template":"controller.ft",
 		"outSuffix":"Controller.java",
-		"outPath":"zh-api/src/main/java/com/zh/api/controller",
-		"project":"zh-api"
-	},{
-		"template":"example.ft",
-		"outSuffix":"Example.java",
-		"outPath":"zh-entity/src/main/java/com/zh/entity",
-		"project":"zh-entity"
+		"outPath":"/car-api/src/main/java/com/zh/car/api/controller",
+		"project":"car-api"
 	}
 
 	]

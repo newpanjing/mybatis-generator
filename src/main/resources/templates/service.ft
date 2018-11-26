@@ -1,57 +1,13 @@
 package ${package}.service;
 
 import ${package}.entity.${modelName};
-import java.lang.Long;
-import java.lang.Integer;
-import ${package}.util.DataGrid;
-
 /**
  * ${modelRemark} Service
  * @author ${author}
  * @project ${project}
  * @date  ${now?datetime}
  */
-public interface ${modelName}Service {
+public interface ${modelName}Service extends BaseService<${modelName}>{
 
-    /**
-     * 保存
-     *
-     * @param ${modelName?uncap_first}
-     * @return
-     */
-	public int save(${modelName} ${modelName?uncap_first});
-
-    /**
-     * 修改
-     *
-     * @param ${modelName?uncap_first}
-     * @return
-     */
-    public int updateByPrimaryKeySelective(${modelName} ${modelName?uncap_first});
-
-    /**
-     * 根据id查询
-     *
-     * @param id
-     * @return
-     */
-    public ${modelName} selectByPrimaryKey(Long id);
-
-    /**
-     * 根据id删除
-     *
-     * @param id
-     * @return
-     */
-    public int deleteByPrimaryKey(Long id);
-
-    /**
-     * 获取列表数据
-     * @param pageNo
-     * @param pageSize
-     * @param ${modelName?uncap_first}
-     * @return
-     */
-    public DataGrid getDataGrid(Integer pageNo, Integer pageSize, ${modelName} ${modelName?uncap_first});
 
 }

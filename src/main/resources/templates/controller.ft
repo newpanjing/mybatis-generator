@@ -1,15 +1,16 @@
 package ${package}.api.controller;
 
-import ${package}.core.result.Result;
-import ${package}.core.result.code.StatusCode;
-import ${package}.util.DataGrid;
-import ${package}.service.${modelName}Service;
-import ${package}.entity.${modelName};
-
-import org.springframework.beans.factory.annotation.Autowired;
+import ${package}.api.utils.Result;
+import ${package}.api.utils.StatusCode;
+import ${package}.core.utils.DataGrid;
+import ${package}.entity.FenceSetting;
+import ${package}.service.*;
+import ${package}.core.utils.Pager;
+import com.alibaba.dubbo.config.annotation.Reference;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
 
 /**
  * ${modelRemark} 控制器
@@ -25,7 +26,7 @@ public class ${modelName}Controller extends BaseController{
         <#assign  lower= modelName?uncap_first >
          <#assign service=lower+"Service" >
         </#if>
-    @Autowired
+    @Reference
     private ${modelName}Service ${service};
 
     /**
@@ -39,10 +40,10 @@ public class ${modelName}Controller extends BaseController{
         Result result = Result.getError(StatusCode.SYSTEM_ERROR);
 
         try {
-            int rs=${service}.save(${modelName?uncap_first});
+            int rs=${service}.insertSelective(${modelName?uncap_first});
             result=Result.getSuccess(rs);
         } catch (Exception e) {
-          e.printStackTrace();
+          log.error("error:",e);
         }
         return result;
     }
@@ -63,7 +64,7 @@ public class ${modelName}Controller extends BaseController{
             int rs=${service}.updateByPrimaryKeySelective(${modelName?uncap_first});
          result=Result.getSuccess(rs);
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("error:",e);
         }
 
         return result;
@@ -78,10 +79,10 @@ public class ${modelName}Controller extends BaseController{
     public Result getList(Integer pageNo,Integer pageSize,${modelName} ${modelName?uncap_first}) {
         Result result = Result.getError(StatusCode.SYSTEM_ERROR);
         try {
-            DataGrid dataGrid=${service}.getDataGrid(pageNo, pageSize, ${modelName?uncap_first});
+            DataGrid dataGrid=${service}.getDataGridByModel(${modelName?uncap_first},new Pager(pageNo,pageSize));
             result=Result.getSuccess(dataGrid);
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("error:",e);
         }
         return result;
     }
