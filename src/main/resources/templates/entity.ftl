@@ -1,6 +1,16 @@
 package ${package}.entity;
 
 import java.io.Serializable;
+
+import ${package}.utils.PageUtil;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.validator.constraints.NotBlank;
+
+import java.util.Date;
+
 <#list packages as p>
 import ${p};
 </#list>
@@ -12,13 +22,28 @@ import ${p};
  * @project ${project}
  * @date  ${now?datetime}
  */
-public class ${modelName} implements Serializable {
+@ApiModel(value="${modelRemark}",description="${modelRemark}${modelName}" )
+public class ${modelName} extends PageUtil implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
 	<#list columns as item>
+	<#assign size="">
+	<#if item.typeName == "String">
+	<#assign size="，长度："+item.size>
+	</#if>
+	<#assign default="">
+	<#if item.default??>
+	<#assign default="，默认为："+item.default>
+	</#if>
+
 	<#if item.name == idField>
 	//主键字段
+	@ApiModelProperty("主键${idField}${size}${default}")
+	@TableId
+	</#if>
+	<#if item.name != idField>
+	@ApiModelProperty("${item.remark}${size}${default}")
 	</#if>
 	private ${item.typeName} ${item.fieldName};// ${item.remark} ${item.name}
 	

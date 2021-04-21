@@ -211,6 +211,7 @@ public class BuildHelper {
                 Map<Object, Object> colMap = new HashMap<Object, Object>();
 
                 String name = rs.getString("COLUMN_NAME");
+                Integer size =Integer.valueOf(rs.getString("COLUMN_SIZE"));
                 String remark = rs.getString("REMARKS");
                 String type = rs.getString("TYPE_NAME");
 
@@ -228,6 +229,8 @@ public class BuildHelper {
                 }
                 colMap.put("remark", remark);
                 colMap.put("name", name);
+                colMap.put("size", size);
+                colMap.put("default", rs.getString("COLUMN_DEF"));
                 colMap.put("fieldName", fieldName);
                 Map<String, String> typeMapper = new HashMap<String, String>();
                 typeMapper.put("INT", "INTEGER");

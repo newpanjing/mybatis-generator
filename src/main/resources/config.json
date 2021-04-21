@@ -1,57 +1,46 @@
 {
-	"package":"com.zh",
+	"package":"com.yzt.eface",
 	"jdbc":{
-		"url":"jdbc:mysql://192.168.1.179:3306/zh_test?useUnicode=true&characterEncoding=utf-8",
+		"url":"jdbc:mysql://192.168.1.76:3306/eface?useUnicode=true&characterEncoding=utf-8",
 		"username":"root",
-		"password":"zh2018"
+		"password":"123456"
 	},
 	"tableMapping":{
-		"sys_resources":{
-			"name":"SysResources",
-			"remark":"系统资源模块"
+		"channel":{
+			"name":"Channel",
+			"remark":"通道"
 		}
 	},
 	"author":"panjing",
-	"basePath":"/Users/panjing/dev/zh-parent-test/",
+	"basePath":"/Users/panjing/dev/eface-parent/",
 	"templates":[{
-		"template":"types.ft",
-		"outSuffix":"Types.txt",
-		"outPath":"/Users/panjing/Downloads/types"
-	},{
-		"template":"entity.ft",
+		"template":"entity.ftl",
 		"outSuffix":".java",
-		"outPath":"zh-entity/src/main/java/com/zh/entity",
-		"project":"zh-entity"
+		"outPath":"eface-common/src/main/java/com/yzt/eface/entity/",
+		"project":"eface-common"
 	},{
-		"template":"mapper.ft",
+		"template":"mapper.ftl",
 		"outSuffix":"Mapper.java",
-		"outPath":"zh-dao/src/main/java/com/zh/dao",
-		"project":"zh-dao"
+		"outPath":"eface-provider/src/main/java/com/yzt/eface/mapper",
+		"project":"eface-provider"
 	},{
-		"template":"mapper.xml.ft",
+		"template":"mapper.xml.ftl",
 		"outSuffix":"Mapper.xml",
-		"outPath":"zh-dao/src/main/java/com/zh/dao/mapper"
+		"outPath":"eface-provider/src/main/resources/mybatis/mapper"
 	},{
-		"template":"service.ft",
+		"template":"service.ftl",
 		"outSuffix":"Service.java",
-		"outPath":"zh-service/src/main/java/com/zh/service",
-		"project":"zh-service"
+		"outPath":"eface-provider/src/main/java/com/yzt/eface/service",
+		"project":"eface-provider"
 	},{
-		"template":"serviceImpl.ft",
+		"template":"serviceImpl.ftl",
 		"outSuffix":"ServiceImpl.java",
-		"outPath":"zh-service/src/main/java/com/zh/service/impl",
-		"project":"zh-service"
+		"outPath":"eface-provider/src/main/java/com/yzt/eface/service/impl",
+		"project":"eface-provider"
 	},{
-		"template":"controller.ft",
+		"template":"controller.ftl",
 		"outSuffix":"Controller.java",
-		"outPath":"zh-api/src/main/java/com/zh/api/controller",
-		"project":"zh-api"
-	},{
-		"template":"example.ft",
-		"outSuffix":"Example.java",
-		"outPath":"zh-entity/src/main/java/com/zh/entity",
-		"project":"zh-entity"
-	}
-
-	]
+		"outPath":"eface-provider/src/main/java/com/yzt/eface/controller",
+		"project":"eface-provider"
+	}]
 }
