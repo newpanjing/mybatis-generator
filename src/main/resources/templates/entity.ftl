@@ -3,11 +3,10 @@ package ${package}.entity;
 import java.io.Serializable;
 
 import ${package}.utils.PageUtil;
-import com.baomidou.mybatisplus.annotation.TableField;
+
 import com.baomidou.mybatisplus.annotation.TableId;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import org.hibernate.validator.constraints.NotBlank;
 
 import java.util.Date;
 
@@ -39,11 +38,11 @@ public class ${modelName} extends PageUtil implements Serializable {
 
 	<#if item.name == idField>
 	//主键字段
-	@ApiModelProperty("主键${idField}${size}${default}")
 	@TableId
+	@ApiModelProperty(value = "主键${idField}${size}${default}", dataType = "UUID")
 	</#if>
 	<#if item.name != idField>
-	@ApiModelProperty("${item.remark}${size}${default}")
+	@ApiModelProperty(value = "${item.remark}${size}${default}"<#if item.fieldName =="isDelete">, hidden = true</#if>)
 	</#if>
 	private ${item.typeName} ${item.fieldName};// ${item.remark} ${item.name}
 	

@@ -18,6 +18,14 @@ public interface ${modelName}Service extends IService<${modelName}>{
      * @param ${modelName?uncap_first}
      * @return
      */
-    public IPage<${modelName}> gePageList(${modelName} ${modelName?uncap_first});
+    IPage<${modelName}> gePageList(${modelName} ${modelName?uncap_first});
+
+    /**
+     * 根据id 删除
+     *
+     * @param id
+     * @return
+     */
+    boolean deleteById(String id);
 
 }

@@ -292,9 +292,9 @@ public class BuildHelper {
 
         Map<String, Object> rs = new HashMap<String, Object>();
 
-        String[] longs = new String[]{"TINYINT", "SMALLINT", "MEDIUMINT", "BIGINT"};
+        String[] longs = new String[]{"MEDIUMINT", "BIGINT"};
         String[] strings = new String[]{"VARCHAR", "CHAR", "TEXT", "MEDIUMTEXT"};
-        String[] ints = new String[]{"INTEGER", "INT", "BIT", "BOOLEAN"};
+        String[] ints = new String[]{"TINYINT", "SMALLINT", "INTEGER", "INT", "BIT", "BOOLEAN"};
         String[] doubles = new String[]{"FLOAT", "DOUBLE", "DECIMAL"};
         String[] dates = new String[]{"DATE", "TIME", "DATETIME", "TIMESTAMP", "YEAR"};
 
