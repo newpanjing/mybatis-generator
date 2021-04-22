@@ -1,11 +1,8 @@
 package com.qikenet.build;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
@@ -16,6 +13,10 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
+import com.github.difflib.DiffUtils;
+import com.github.difflib.patch.AbstractDelta;
+import com.github.difflib.patch.DeltaType;
+import com.github.difflib.patch.Patch;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 
@@ -112,7 +113,7 @@ public class BuildHelper {
                 dir.mkdirs();
             }
 
-            String filePath = String.valueOf(tableMap.get("basePath")) + dir.getPath() + "/" + tableMap.get("modelName") + template.get("outSuffix");
+            String filePath = tableMap.get("basePath") + dir.getPath() + "/" + tableMap.get("modelName") + template.get("outSuffix");
 
             File target = new File(filePath);
             File dirTarget = new File(target.getParent());
@@ -122,8 +123,6 @@ public class BuildHelper {
             if (!target.exists()) {
                 target.createNewFile();
             }
-            System.out.println(target);
-            FileWriter fw = new FileWriter(target);
 
             //扩展字段
             Set<String> keys = template.keySet();
@@ -133,7 +132,46 @@ public class BuildHelper {
                 }
             }
 
-            temp.process(tableMap, fw);
+            if (!target.exists()) {
+                System.out.println("写入新文件：" + target.toPath());
+                FileWriter fw = new FileWriter(target);
+                temp.process(tableMap, fw);
+            } else {
+                System.out.println(target.toPath());
+                System.out.println("文件存在，自动合并文件。");
+                ByteArrayOutputStream out = new ByteArrayOutputStream();
+                temp.process(tableMap, new OutputStreamWriter(out));
+
+                try {
+                    List<String> sourceLines = Arrays.asList(new String(out.toByteArray(), StandardCharsets.UTF_8).split("\n"));
+                    List<String> targetLines = Files.readAllLines(target.toPath());
+
+                    Patch<String> patch = DiffUtils.diff(targetLines, sourceLines);
+
+                    List<AbstractDelta<String>> deltas = new ArrayList<>();
+                    for (AbstractDelta<String> delta : patch.getDeltas()) {
+                        if (delta.getType() != DeltaType.DELETE) {
+                            deltas.add(delta);
+                        }
+                    }
+
+                    Patch<String> patches = new Patch<>(deltas.size());
+                    for (AbstractDelta<String> d : deltas) {
+                        patches.addDelta(d);
+                    }
+                    FileWriter fw = new FileWriter(target);
+                    List<String> result = DiffUtils.patch(targetLines, patches);
+                    for (String line : result) {
+                        fw.write(line);
+                        fw.write("\n");
+                    }
+                    fw.flush();
+                    fw.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -211,7 +249,7 @@ public class BuildHelper {
                 Map<Object, Object> colMap = new HashMap<Object, Object>();
 
                 String name = rs.getString("COLUMN_NAME");
-                Integer size =Integer.valueOf(rs.getString("COLUMN_SIZE"));
+                Integer size = Integer.valueOf(rs.getString("COLUMN_SIZE"));
                 String remark = rs.getString("REMARKS");
                 String type = rs.getString("TYPE_NAME");
 
@@ -347,7 +385,7 @@ public class BuildHelper {
                     //http之类的协议不处理
                     if (!":".equals(line.substring(index - 1, index))) {
                         line = line.substring(0, index);
-                    }else{
+                    } else {
                         break;
                     }
                 }
